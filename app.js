@@ -29,13 +29,13 @@ rl.on('line', (lineString) => {
 });
 rl.on('close', () => {
     for (let [key, value] of prefectureDataMap) {
-        value.ratio_2015To2010 = value.population_2015 / value.population_2010;
+        value.ratio_2015To2010 = Math.floor(value.population_2015 / value.population_2010 * 100);
     }
     const rankingArray = Array.from(prefectureDataMap).sort((pair1, pair2) => {
         return pair2[1].ratio_2015To2010 - pair1[1].ratio_2015To2010;
     });
     const rankingStrings = rankingArray.map(([key, value]) => {
-        return `${key} : 2010年 ${value.population_2010}人 => 2015年 ${value.population_2015}人    変化率 : ${value.ratio_2015To2010}倍`
+        return `${key} : 2010年 ${value.population_2010}人 => 2015年 ${value.population_2015}人    変化率 : ${value.ratio_2015To2010}％`
     });
     console.log(rankingStrings);
 });
